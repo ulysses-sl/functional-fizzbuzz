@@ -3,10 +3,6 @@
 ;
 ; sequence generator macro, assuming that we don't have the implementation
 ; of SRFI-42 (eager comprehension) to generate numerical sequence
-; usage: (generate start end) or (generate start end step),
-;        where "start" is the starting number of the sequence, "end" is the
-;        inclusive upper/lower limit of the sequence, and the optional "step"
-;        is the incremental/decremental step of the sequence.
 (define-syntax generate
   (syntax-rules ()
     ((generate start end)
@@ -45,7 +41,7 @@
              (let* ((divisor (caar cp-pairs))
                     (message (cadar cp-pairs))
                     (new-divisible (= 0 (remainder number divisor)))
-                    (deliver (if new-divisible (cut cons message <>) (lambda (x) x))))
+                    (deliver (lambda (x) (if new-divisible (cons message x) x))))
                (deliver (cpop number (or divisible new-divisible) (cdr cp-pairs))))))))
     (cpop num #f '((3 "Crackle") (5 "Pop")))))
 
