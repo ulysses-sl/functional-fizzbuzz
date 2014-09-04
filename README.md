@@ -1,4 +1,8 @@
 functional-fizzbuzz
 ===================
 
-FizzBuzz written in a functional way in pure R5RS Scheme (without any SRFI)
+FizzBuzz written in functional ways...
+
+- ...in pure R5RS Scheme (without any SRFI)
+
+- ...in Haskell
