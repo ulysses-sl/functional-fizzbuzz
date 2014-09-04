@@ -1,12 +1,21 @@
+cplist = [(3, "Crackle"), (5, "Pop")]
+
 cracklepop :: Int -> [Char]
-cracklepop num = cpop num False [(3, "Crackle"), (5, "Pop")]
+cracklepop num = take_nonempty ((flatten . cpop) num) (show num)
 
-cpop :: Int -> Bool -> [(Int, [Char])] -> [Char]
-cpop num divisible [] = if divisible then [] else show num
+cpop :: Int -> [[Char]]
+cpop num = map (div_check num) cplist
+    where div_check n (d, word) = if n `divisible_by` d then word else []
 
-cpop num old_div ((x, y):xs) = word ++ cpop num (old_div || new_div) xs
-    where new_div = rem num x == 0
-          word = if new_div then y else []
+take_nonempty :: [a] -> [a] -> [a]
+take_nonempty xs ys = if null xs then ys else xs
+
+divisible_by :: Int -> Int -> Bool
+divisible_by num x = rem num x == 0
+
+flatten :: [[a]] -> [a]
+flatten [] = []
+flatten xs = foldl (++) [] xs
 
 main :: IO [()]
 main = mapM (putStrLn . cracklepop) [1..100]
