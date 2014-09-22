@@ -8,7 +8,8 @@ cpop num = map (div_check num) cplist
     where div_check n (d, word) = if n `divisible_by` d then word else []
 
 take_nonempty :: [a] -> [a] -> [a]
-take_nonempty xs ys = if null xs then ys else xs
+take_nonempty [] ys = ys
+take_nonempty xs ys = xs
 
 divisible_by :: Int -> Int -> Bool
 divisible_by num x = rem num x == 0
